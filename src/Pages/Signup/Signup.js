@@ -11,11 +11,19 @@ const Signup = () => {
             const email = form.email.value; 
             const password = form.password.value; 
             createUser(email, password)
+            fetch('http://localhost:5003/', {
+                method: 'POST', 
+                headers: {
+                    'content-type': 'application/json'
+                }, 
+                body:JSON.stringify(createUser)
+            })
             .then(result => {
                const user = result.user; 
                console.log(user)
             })
             .catch(err => console.log(err))
+            form.reset()
     }
     return (
         <div className="hero w-full my-20">
