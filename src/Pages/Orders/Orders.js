@@ -6,7 +6,26 @@ const Orders = () => {
     const { user } = useContext(AuthContext)
     // console.log(user)
     const [orders, setOrders] = useState([])
-   
+    const handleDelete = id => {
+        const proceed = window.confirm('Are you sure, you want to cancel this order')
+     if(proceed) {
+    fetch(`http://localhost:9000/orders/${id}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        if(data.deletedCount > 0){
+            alert('Deleted Successfully'); 
+            const remaining = orders.filter(odr => odr._id !== id)
+            setOrders(remaining)
+        }
+    })
+}
+}  
+
+
+
 
     useEffect(() => {
         fetch(`http://localhost:9000/orders?email=${user?.email}`)
@@ -14,6 +33,7 @@ const Orders = () => {
             .then(data => setOrders(data))
 
     }, [user?.email])
+
 
     return (
         <div>
@@ -38,7 +58,13 @@ const Orders = () => {
                     <tbody>
                         {/* <!-- row 1 --> */}
                        {
-                        orders?.map( order => <OrderRow key={order._id} order={order} ></OrderRow>)
+                        orders?.map( order => <OrderRow 
+                            key={order._id} 
+                            order={order}
+                            handleDelete= {handleDelete}
+                            
+                            
+                            ></OrderRow>)
                        }
                 
                         
