@@ -35,7 +35,7 @@ const handleStatusUpdate = id => {
         .then(res => res.json())
         .then(data => {console.log(data)
                 if(data.modifiedCount>0){
-                        const remaining = orders.filter(odr => odr._id !== id)
+                        // const remaining = orders.filter(odr => odr._id !== id)
                         const approving = orders.find(odr => orders._id ===id)
                         approving.status = 'Approved'
                         const newOrders = [ approving , ...approving]
@@ -56,7 +56,7 @@ const handleStatusUpdate = id => {
         })
             .then(res => {
                 if(res.status === 401 || res.status === 403){
-                    logOut()
+                   return logOut()
                 }
                 
                return  res.json()})
