@@ -31,7 +31,7 @@ const { createBrowserRouter } = require("react-router-dom");
         {
           path:'/checkout/:id', 
           element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>, 
-          loader: ({params}) => fetch(`http://localhost:9000/services/${params.id}`)
+          loader: ({params}) => fetch(`https://genius-car-server-alpha-red.vercel.app/services/${params.id}`)
         }, 
         {
           path: '/orders', 
