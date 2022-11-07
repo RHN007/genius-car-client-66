@@ -11,7 +11,10 @@ const Orders = () => {
         const proceed = window.confirm('Are you sure, you want to cancel this order')
      if(proceed) {
     fetch(`http://localhost:9000/orders/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
+            }
     })
     .then(res => res.json())
     .then(data => {
@@ -28,7 +31,8 @@ const handleStatusUpdate = id => {
         fetch(`http://localhost:9000/orders/${id}`, {
             method: 'PATCH', 
             headers: {
-                'content-type' : 'application/json'
+                'content-type' : 'application/json',
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
             }, 
             body: JSON.stringify({status: 'Approved'})
         })
