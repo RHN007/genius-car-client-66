@@ -5,16 +5,16 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext)
-  
+
   const handleLogOut = () => {
       logout()
       .then()
       .catch(err => console.error(err))
   }
-  
-  
-  
-  
+
+
+
+
   const menuItems = <>
     <li className='font-semibold'><Link to='/'>Home</Link></li>
     {user?.email ?
@@ -46,7 +46,7 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="btn btn-outline btn-warning">Appointment</button>
+        ass
       </div>
     </div>
   );

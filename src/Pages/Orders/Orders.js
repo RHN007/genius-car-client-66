@@ -1,12 +1,19 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import OrderRow from './OrderRow';
 
 const Orders = () => {
+    useTitle('Orders')
     const { user, logOut } = useContext(AuthContext)
     // console.log(user)
     const [orders, setOrders] = useState([])
+
+
+
+
+
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to cancel this order')
      if(proceed) {
@@ -20,20 +27,20 @@ const Orders = () => {
     .then(data => {
         console.log(data)
         if(data.deletedCount > 0){
-            alert('Deleted Successfully'); 
+            alert('Deleted Successfully');
             const remaining = orders.filter(odr => odr._id !== id)
             setOrders(remaining)
         }
     })
 }
-}  
+}
 const handleStatusUpdate = id => {
         fetch(`https://genius-car-server-alpha-red.vercel.app/orders/${id}`, {
-            method: 'PATCH', 
+            method: 'PATCH',
             headers: {
                 'content-type' : 'application/json',
                 authorization: `Bearer ${localStorage.getItem('genius-token')}`
-            }, 
+            },
             body: JSON.stringify({status: 'Approved'})
         })
         .then(res => res.json())
@@ -62,10 +69,10 @@ const handleStatusUpdate = id => {
                 if(res.status === 401 || res.status === 403){
                    return logOut()
                 }
-                
+
                return  res.json()})
             .then(data => {
-                
+
                 // console.log('received', data)
                 setOrders(data)})
 
@@ -95,22 +102,22 @@ const handleStatusUpdate = id => {
                     <tbody>
                         {/* <!-- row 1 --> */}
                        {
-                        orders?.map( order => <OrderRow 
-                            key={order._id} 
+                        orders?.map( order => <OrderRow
+                            key={order._id}
                             order={order}
                             handleDelete= {handleDelete}
                             handleStatusUpdate= {handleStatusUpdate}
-                            
-                            
+
+
                             ></OrderRow>)
                        }
-                
-                        
-                       
-                  
+
+
+
+
                     </tbody>
                     {/* <!-- foot --> */}
-                  
+
 
                 </table>
             </div>

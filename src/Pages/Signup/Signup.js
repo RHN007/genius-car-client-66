@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { setAuthToken } from '../../api/authJWT';
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 const Signup = () => {
+    useTitle('SignUp')
     const {createUser} = useContext(AuthContext)
     const handleSignup = (event) => {
             event.preventDefault(); 
